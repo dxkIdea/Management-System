@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  thymeleaf:
+    suffix: .html
+    servlet:
+      content-type: text/html
+    encoding: UTF-8
+    mode: HTML
+    prefix: classpath:/templates/
+    cache: false
+    check-template: true
+    enabled: true
+  mvc:
+    favicon:
+      enabled: false
