@@ -12,12 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class IndexController {
+    /**
+     * 首页
+     * @return
+     */
     @RequestMapping(value = "/index")
     public String index () {
         return "index";
     }
-    @RequestMapping(value = "/login")
-    public String login () {
-        return "login";
+    /**
+     * 控制台
+     * @return
+     */
+    @RequestMapping(value = "/console")
+    public String console () {
+        return "console";
     }
 }

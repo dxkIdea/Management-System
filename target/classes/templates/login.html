@@ -3,36 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>登录</title>
-    <script type="text/javascript" th:src="@{/plugins/jquery/jquery-3.4.1.js}"></script>
-    <script type="text/javascript" th:src="@{/plugins/layui/layui.js}"></script>
-    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+    <script type="text/javascript" th:src="@{/static/plugins/jquery/jquery-3.4.1.js}"></script>
+    <script type="text/javascript" th:src="@{/static/plugins/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/main.js}"></script>
 
-    <link rel="stylesheet" th:href="@{/plugins/layui/css/layui.css}"/>
-    <link rel="stylesheet" th:href="@{/css/login.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/main.css}"/>
+    <link rel="stylesheet" th:href="@{/static/plugins/layui/css/layui.css}"/>
 
 </head>
 <body>
     <div id="container" class="layui-container">
         <div class="layui-row">
-            <div id="main" class="layui-col-md4 layui-col-md-offset4" >
-                <div>
+            <div id="main" class="layui-col-md4 layui-col-md-offset4">
+                <div class="head">
                     <h1>管理系统</h1>
                     <p>基于layUI前端框架实现</p>
                 </div>
-                <div id="form" class="layui-form">
+                <form id="form" class="layui-form" th:action="@{/userLogin}">
                     <div class="layui-form-item">
-                        <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="name"></label>
-                        <input type="text" id="name" name="name" placeholder="用户名" autocomplete="off" lay-verify="required" class="layui-input" style="padding-left: 38px;">
+                        <label class="label-icon layui-icon layui-icon-username" for="name"></label>
+                        <input value="17600299358" type="text" id="name" name="userName" placeholder="手机号/昵称" autocomplete="off" lay-verify="required" class="layui-input" style="padding-left: 38px;">
                     </div>
                     <div class="layui-form-item">
-                        <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="password"></label>
-                        <input type="password" id="password" name="password" placeholder="密码" autocomplete="off" lay-verify="required" class="layui-input" style="padding-left: 38px;">
+                        <label class="label-icon layui-icon layui-icon-password" for="password"></label>
+                        <input value="123456" type="password" id="password" name="passWord" placeholder="密码" autocomplete="off" lay-verify="required" class="layui-input" style="padding-left: 38px;">
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-row">
                             <div class="layui-col-xs7">
-                                <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="vercode"></label>
-                                <input type="text" id="vercode" name="vercode" required lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input" maxlength="4" style="padding-left: 38px;">
+                                <label class="label-icon layui-icon layui-icon-vercode" for="verCode"></label>
+                                <input type="text" id="verCode" name="verCode" required lay-verify="required" placeholder="验证码" autocomplete="off" class="layui-input" maxlength="4" style="padding-left: 38px;">
                             </div>
                             <div class="layui-col-xs5" >
                                 <div style="margin-left: 10px">
@@ -44,30 +44,38 @@
                         </div>
                     </div>
                     <div class="layui-form-item" style="margin-bottom: 20px;">
-                        <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
-                        <div class="layui-unselect layui-form-checkbox remember" lay-skin="primary">
-                            <span>记住密码</span>
-                            <i class="layui-icon layui-icon-ok"></i>
+                        <div style="float:left;">
+                            <input type="checkbox" name="remember" lay-skin="primary" title="记住密码">
+                            <div class="layui-unselect layui-form-checkbox remember" lay-skin="primary">
+                                <span>记住密码</span>
+                                <i class="layui-icon layui-icon-ok"></i>
+                            </div>
                         </div>
-                        <a lay-href="/index" class="forget-a" style="margin-top: 7px;">忘记密码？</a>
+                        <a href="/forget" class="jump-a" style="margin-top: 7px;">忘记密码？</a>
                     </div>
                     <div class="layui-form-item">
-                        <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="form-submit">登录</button>
+                        <button class="layui-btn layui-btn-fluid">登录</button>
                     </div>
+                </form>
+                <p th:text="${msg}" style="color: red"/>
+                <div class="layui-trans layui-form-item login-other">
+                    <div style="float: left">
+                        <lable>第三方账号登录</lable>
+                        <a href="javascript:;">
+                            <i class="layui-icon layui-icon-login-qq"></i>
+                        </a>
+                        <a href="javascript:;">
+                            <i class="layui-icon layui-icon-login-wechat"></i>
+                        </a>
+                    </div>
+                    <a href="/regist" class="jump-a layadmin-link">注册账号</a>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        //Demo
+        //引入form模块
         layui.use('form', function(){
-            var form = layui.form;
-
-            //监听提交
-            form.on('submit(form-submit)', function(data){
-                layer.msg(JSON.stringify(data.field));
-                return false;
-            });
         })
     </script>
 </body>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>控制台</title>
+    <script type="text/javascript" th:src="@{/static/plugins/jquery/jquery-3.4.1.js}"></script>
+    <script type="text/javascript" th:src="@{/static/plugins/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/static/plugins/echarts/echarts.js}"></script>
+
+    <link rel="stylesheet" th:href="@{/static/plugins/layui/css/layui.css}"/>
+
+</head>
+<body>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md6" >
+                <div id="echarts-1" style="width: 500px;height:400px;"></div>
+            </div>
+            <div class="layui-col-md6">
+                <div id="echarts-2" style="width: 500px;height:400px;"></div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-md6">
+                <div id="echarts-3" style="width: 600px;height:400px;"></div>
+            </div>
+            <div class="layui-col-md6">
+                <div id="echarts-4" style="width: 600px;height:400px;"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var myChart1 = echarts.init(document.getElementById("echarts-1"));
+        var myChart2 = echarts.init(document.getElementById("echarts-2"));
+        var myChart3 = echarts.init(document.getElementById("echarts-3"));
+        var myChart4 = echarts.init(document.getElementById("echarts-4"));
+
+
+        var data = [];
+        for (var i = 0; i <= 360; i++) {
+            var t = i / 180 * Math.PI;
+            var r = Math.sin(2 * t) * Math.cos(2 * t);
+            data.push([r, i]);
+        }
+
+        option1 = {
+            title: {
+                text: '极坐标双数值轴'
+            },
+            legend: {
+                data: ['line']
+            },
+            polar: {
+                center: ['50%', '54%']
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross'
+                }
+            },
+            angleAxis: {
+                type: 'value',
+                startAngle: 0
+            },
+            radiusAxis: {
+                min: 0
+            },
+            series: [{
+                coordinateSystem: 'polar',
+                name: 'line',
+                type: 'line',
+                showSymbol: false,
+                data: data
+            }],
+            animationDuration: 2000
+        };
+
+
+        option2 = {
+            angleAxis: {
+            },
+            radiusAxis: {
+                type: 'category',
+                data: ['周一', '周二', '周三', '周四'],
+                z: 10
+            },
+            polar: {
+            },
+            series: [{
+                type: 'bar',
+                data: [1, 2, 3, 4],
+                coordinateSystem: 'polar',
+                name: 'A',
+                stack: 'a'
+            }, {
+                type: 'bar',
+                data: [2, 4, 6, 8],
+                coordinateSystem: 'polar',
+                name: 'B',
+                stack: 'a'
+            }, {
+                type: 'bar',
+                data: [1, 2, 3, 4],
+                coordinateSystem: 'polar',
+                name: 'C',
+                stack: 'a'
+            }],
+            legend: {
+                show: true,
+                data: ['A', 'B', 'C']
+            }
+        };
+
+        option3 = {
+            legend: {},
+            tooltip: {},
+            dataset: {
+                dimensions: ['product', '2015', '2016', '2017'],
+                source: [
+                    {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},
+                    {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},
+                    {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},
+                    {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}
+                ]
+            },
+            xAxis: {type: 'category'},
+            yAxis: {},
+            // Declare several bar series, each will be mapped
+            // to a column of dataset.source by default.
+            series: [
+                {type: 'bar'},
+                {type: 'bar'},
+                {type: 'bar'}
+            ]
+        };
+
+        option4 = {
+            title: {
+                text: '漏斗图',
+                subtext: '纯属虚构'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c}%"
+            },
+            toolbox: {
+                feature: {
+                    dataView: {readOnly: false},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            legend: {
+                data: ['展现','点击','访问','咨询','订单']
+            },
+            calculable: true,
+            series: [
+                {
+                    name:'漏斗图',
+                    type:'funnel',
+                    left: '10%',
+                    top: 60,
+                    //x2: 80,
+                    bottom: 60,
+                    width: '80%',
+                    // height: {totalHeight} - y - y2,
+                    min: 0,
+                    max: 100,
+                    minSize: '0%',
+                    maxSize: '100%',
+                    sort: 'descending',
+                    gap: 2,
+                    label: {
+                        show: true,
+                        position: 'inside'
+                    },
+                    labelLine: {
+                        length: 10,
+                        lineStyle: {
+                            width: 1,
+                            type: 'solid'
+                        }
+                    },
+                    itemStyle: {
+                        borderColor: '#fff',
+                        borderWidth: 1
+                    },
+                    emphasis: {
+                        label: {
+                            fontSize: 20
+                        }
+                    },
+                    data: [
+                        {value: 60, name: '访问'},
+                        {value: 40, name: '咨询'},
+                        {value: 20, name: '订单'},
+                        {value: 80, name: '点击'},
+                        {value: 100, name: '展现'}
+                    ]
+                }
+            ]
+        };
+        myChart1.setOption(option1);
+        myChart2.setOption(option2);
+        myChart3.setOption(option3);
+        myChart4.setOption(option4);
+    </script>
+</body>
+</html>

@@ -6,10 +6,19 @@ body {
 }
 #main {
     text-align: center;
-    margin-top: 160px;
+    margin-top: 100px;
+}
+.head {
+    text-align: center;
+    padding: 20px;
+}
+.head p {
+    color: #999;
+    font-weight: 300;
+    margin-top: 10px;
 }
 #form{
-    margin-top: 40px;
+    margin-top: 20px;
 }
 .verCode-img {
     width: 100%;
@@ -17,7 +26,7 @@ body {
     cursor: pointer;
     box-sizing: border-box;
 }
-.layadmin-user-login-icon {
+.label-icon {
     position:absolute;
     left:1px;
     width:38px;
@@ -28,7 +37,11 @@ body {
 .remember{
     float: left;
 }
-.forget-a {
+.jump-a {
     float: right;
     color: #029789!important;
+}
+.login-other {
+    line-height: 38px;
+    padding-top: 20px;
 }
