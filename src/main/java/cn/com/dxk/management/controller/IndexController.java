@@ -28,4 +28,22 @@ public class IndexController {
     public String console () {
         return "console";
     }
+
+    /**
+     * 系统用户
+     * @return
+     */
+    @RequestMapping(value = "/sysUser")
+    public String sysUser () {
+        return "user/sysUser";
+    }
+
+    /**
+     * 系统管理员
+     * @return
+     */
+    @RequestMapping(value = "/adminUser")
+    public String adminUser () {
+        return "user/adminUser";
+    }
 }

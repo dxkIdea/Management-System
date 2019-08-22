@@ -3,10 +3,12 @@ package cn.com.dxk.management.service.serviceImpl;
 import cn.com.dxk.management.entity.User;
 import cn.com.dxk.management.repository.UserRepository;
 import cn.com.dxk.management.service.UserService;
-import com.alibaba.fastjson.JSON;
+import cn.com.dxk.management.vo.LayUITableResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +23,7 @@ import java.util.UUID;
  * @since 1.0.0
  */
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
@@ -54,7 +57,7 @@ public class UserServiceImpl implements UserService {
         User user = null;
         String msg = "success";
         try{
-            user = new User(UUID.randomUUID().toString(),null,nickName,passWord,iphone,null);
+            user = new User(null,UUID.randomUUID().toString(),null,nickName,passWord,iphone,null,null);
             userRepository.save(user);
         }catch (Exception e) {
             e.printStackTrace();
@@ -92,5 +95,30 @@ public class UserServiceImpl implements UserService {
             resultMap.put("user",null);
         }
         return resultMap;
+    }
+
+    @Override
+    public LayUITableResponseVO<User> findPageUser(int page, int limit) {
+        LayUITableResponseVO userTableVO = new LayUITableResponseVO();
+        PageRequest pageRequest = new PageRequest(page - 1,limit);
+        try {
+            Page<User> pageUsers = userRepository.findAll(pageRequest);
+            userTableVO.setCount(pageUsers.getTotalElements());
+            userTableVO.setCode("0");
+            userTableVO.setMsg("success");
+            userTableVO.setData(pageUsers.getContent());
+        }catch (Exception e) {
+            e.printStackTrace();
+            userTableVO.setCount(0L);
+            userTableVO.setCode("1");
+            userTableVO.setMsg("error");
+            userTableVO.setData(null);
+        }
+        return userTableVO;
+    }
+
+    @Override
+    public void deleteOneUser(String userId) {
+        userRepository.deleteByUserId(userId);
     }
 }

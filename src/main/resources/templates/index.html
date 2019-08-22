@@ -56,11 +56,11 @@
                 <li class="layui-nav-item layui-nav-itemed">
                     <a href="javascript:;" class="layui-icon layui-icon-home">主页</a>
                     <dl class="layui-nav-child">
-                        <dd  class="layui-this"><a href="javascript:;" data-id="1" data-title="控制台" data-url="/console" class="site-demo-active" data-type="tabAdd">
+                        <dd  class="layui-this"><a href="javascript:;" data-id="1" data-title="控制台" data-url="/console" class="site-active" data-type="tabAdd">
                             <i class="layui-icon layui-icon-console"></i>
                             <span>控制台</span></a>
                         </dd>
-                        <dd><a href="javascript:;" data-id="2" data-title="主题设置" data-url="" class="site-demo-active" data-type="tabAdd">
+                        <dd><a href="javascript:;" data-id="2" data-title="主题设置" data-url="" class="site-active" data-type="tabAdd">
                             <i class="layui-icon layui-icon-theme"></i>
                             <span>主题设置</span></a>
                         </dd>
@@ -69,20 +69,20 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;" class="layui-icon layui-icon-user">用户</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="3" data-title="系统用户" data-url="" class="site-demo-active" data-type="tabAdd">
-                            <i class="layui-icon layui-icon-face-surprised"></i>
+                        <dd><a href="javascript:;" data-id="3" data-title="系统用户" data-url="/sysUser" class="site-active" data-type="tabAdd">
+                            <i class="layui-icon layui-icon-username"></i>
                             <span>系统用户</span></a>
                         </dd>
-                        <dd><a href="javascript:;" data-id="4" data-title="后台管理员" data-url="" class="site-demo-active" data-type="tabAdd">
-                            <i class="layui-icon layui-icon-face-surprised"></i>
+                        <dd><a href="javascript:;" data-id="4" data-title="后台管理员" data-url="/adminUser" class="site-active" data-type="tabAdd">
+                            <i class="layui-icon layui-icon-friends"></i>
                             <span>后台管理员</span></a>
                         </dd>
-                        <dd><a href="javascript:;" data-id="5" data-title="角色管理" data-url="" class="site-demo-active" data-type="tabAdd">
+                        <dd><a href="javascript:;" data-id="5" data-title="角色管理" data-url="" class="site-active" data-type="tabAdd">
                             <i class="layui-icon layui-icon-face-surprised"></i>
                             <span>角色管理</span></a>
                         </dd>
-                        <dd><a href="javascript:;" data-id="6" data-title="权限管理" data-url="" class="site-demo-active" data-type="tabAdd">
-                            <i class="layui-icon layui-icon-face-surprised"></i>
+                        <dd><a href="javascript:;" data-id="6" data-title="权限管理" data-url="" class="site-active" data-type="tabAdd">
+                            <i class="layui-icon layui-icon-auz"></i>
                             <span>权限管理</span></a>
                         </dd>
                     </dl>
@@ -90,11 +90,11 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;" class="layui-icon layui-icon-set">设置</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" data-id="7" data-title="系统设置" data-url="" class="site-demo-active" data-type="tabAdd">
+                        <dd><a href="javascript:;" data-id="7" data-title="系统设置" data-url="" class="site-active" data-type="tabAdd">
                             <i class="layui-icon layui-icon-face-surprised"></i>
                             <span>系统设置</span></a>
                         </dd>
-                        <dd><a href="javascript:;" data-id="8" data-title="我的设置" data-url="" class="site-demo-active" data-type="tabAdd">
+                        <dd><a href="javascript:;" data-id="8" data-title="我的设置" data-url="" class="site-active" data-type="tabAdd">
                             <i class="layui-icon layui-icon-face-surprised"></i>
                             <span>我的设置</span></a>
                         </dd>
@@ -108,9 +108,6 @@
     <div class="layui-tab" lay-filter="content" lay-allowclose="true" style="margin-left: 200px;">
         <ul class="layui-tab-title"></ul>
         <div class="layui-tab-content">
-            <!--<div class="layui-tab-item layui-show">
-                <iframe data-frameid="1" scrolling="auto" frameborder="0" src="/console" style="width: 100%; height: 625px;"></iframe>
-            </div>-->
         </div>
     </div>
 
@@ -126,7 +123,7 @@
 
         /*页面嵌套显示--开始*/
         // 配置tab实践在下面无法获取到菜单元素
-        $('.site-demo-active').on('click', function () {
+        $('.site-active').on('click', function () {
             var dataid = $(this);
             //这时会判断右侧.layui-tab-title属性下的有lay-id属性的li的数目，即已经打开的tab项数目
             if ($(".layui-tab-title li[lay-id]").length <= 0) {
@@ -140,7 +137,7 @@
                     if ($(this).attr("lay-id") == dataid.attr("data-id")) {
                         isData = true;
                     }
-                })
+                });
                 if (isData == false) {
                     //标志为false 新增一个tab项
                     active.tabAdd(dataid.attr("data-url"), dataid.attr("data-id"), dataid.attr("data-title"));
@@ -158,16 +155,19 @@
                 element.tabAdd('content', {
                     title: name,
                     content: '<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url + '" style="width:100%;height:99%;"></iframe>',
-                    id: id //规定好的id
+                    //规定好的id
+                    id: id
                 });
-                FrameWH();  //计算ifram层的大小
+                //计算iframe层的大小
+                FrameWH();
             },
+            //切换到指定Tab项根据传入的id传入到指定的tab项
             tabChange: function (id) {
-                //切换到指定Tab项
-                element.tabChange('content', id); //根据传入的id传入到指定的tab项
+                element.tabChange('content', id);
             },
+            //删除
             tabDelete: function (id) {
-                element.tabDelete("content", id);//删除
+                element.tabDelete("content", id);
             }
         };
         function FrameWH() {

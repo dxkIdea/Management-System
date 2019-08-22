@@ -22,7 +22,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     /**
      * 不需要登录拦截的url
      */
-    private final String[] notLoginInterceptPaths = {"/static/**","/static/favicon.ico","/error/**","/login","/regist","/forget","/userLogin","/registUser","/getVerCode","/checkIphoneOrNickName"};
+    private final String[] notLoginInterceptPaths = {"/static/**","/static/favicon.ico","/error/**","/login","/regist","/forget","/userLogin","/registUser","/getVerCode","/checkIphone"};
 
     /**
      * 配置不需要经过controller就跳转到登录页面

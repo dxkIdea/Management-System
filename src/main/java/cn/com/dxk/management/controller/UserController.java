@@ -4,6 +4,7 @@ import cn.com.dxk.management.entity.User;
 import cn.com.dxk.management.repository.UserRepository;
 import cn.com.dxk.management.service.UserService;
 import cn.com.dxk.management.util.RandomValidateCodeUtil;
+import cn.com.dxk.management.vo.LayUITableResponseVO;
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +29,6 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
 
     /**
      * 注册新用户时，校验手机号是否存在
@@ -132,10 +130,15 @@ public class UserController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "getAllUser")
-    public String getAllUser () {
-        List<User> u = userRepository.findAll();
-        return JSON.toJSONString(u);
+    @RequestMapping(value = "findPageUser")
+    public LayUITableResponseVO<User> getAllUser (@RequestParam("page") int page, @RequestParam("limit") int limit) {
+        return userService.findPageUser(page,limit);
+    }
+
+    @ResponseBody
+    @PostMapping(value = "deleteOneUser")
+    public void deleteOneUser (@RequestParam(value = "userId") String userId) {
+        userService.deleteOneUser(userId);
     }
 
 }
